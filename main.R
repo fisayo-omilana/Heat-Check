@@ -3,8 +3,8 @@ library(dplyr)
 library(ggplot2)
 
 #Gathering relevant play-by-play files for J.R. "Swish" Smith and Nick "Swaggy P" Young based on the teams they played for during the 2012-13 and 2013-14 seasons
-SWISH_GAMES <- list.files(path = "/2012-13", pattern = "*NYK+") %>% c(list.files(path = "/2013-14", pattern = "*NYK+"))
-SWAGGYP_GAMES <- list.files(path = "/2012-13", pattern = "*PHI+") %>% c(list.files(path = "/2013-14", pattern = "*LAL+"))
+SWISH_GAMES <- list.files(path = "./2012-13", pattern = "*NYK+") %>% c(list.files(path = "./2013-14", pattern = "*NYK+"))
+SWAGGYP_GAMES <- list.files(path = "./2012-13", pattern = "*PHI+") %>% c(list.files(path = "./2013-14", pattern = "*LAL+"))
 
 #Data frame to be built throughout calculations for predictive model
 smith_shots_df <- data.frame()
@@ -32,7 +32,7 @@ young_cold_streaks <- vector(mode="list")
 #Determing streak statistics for J.R. Smith
 for (gm in 1:length(SWISH_GAMES)) {
   file <- paste("/2012-13/", SWISH_GAMES[gm], sep = "")
-  if (!file.exists(file)) file <- paste("/2013-14/", SWISH_GAMES[gm], sep = "")
+  if (!file.exists(file)) file <- paste("./2013-14/", SWISH_GAMES[gm], sep = "")
   game <- read_csv(file, col_types = cols())
   result <- calculate_streaks("J.R. Smith", game, smith_shots_df)
   smith_shots_df <- result$shots
@@ -42,8 +42,8 @@ for (gm in 1:length(SWISH_GAMES)) {
 
 #Determining streak statistics for Nick Young
 for (gm in 1:length(SWAGGYP_GAMES)) {
-  file <- paste("/2012-13/", SWAGGYP_GAMES[gm], sep = "")
-  if (!file.exists(file)) file <- paste("/2013-14/", SWAGGYP_GAMES[gm], sep = "")
+  file <- paste("./2012-13/", SWAGGYP_GAMES[gm], sep = "")
+  if (!file.exists(file)) file <- paste("./2013-14/", SWAGGYP_GAMES[gm], sep = "")
   game <- read_csv(file, col_types = cols())
   result <- calculate_streaks("Nick Young", game, young_shots_df)
   young_shots_df <- result$shots
